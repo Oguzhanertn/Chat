@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, prefer_const_declarations
+
 final RegExp EMAIL_VALIDATION_REGEX =
     RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 

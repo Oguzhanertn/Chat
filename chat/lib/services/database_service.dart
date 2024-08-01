@@ -2,7 +2,6 @@ import 'package:chat/models/chat.dart';
 import 'package:chat/models/message.dart';
 import 'package:chat/models/user_profile.dart';
 import 'package:chat/services/auth_service.dart';
-import 'package:chat/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 

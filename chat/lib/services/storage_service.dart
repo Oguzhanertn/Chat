@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_string_interpolations
+
 import 'dart:io';
 //import 'dart:js_interop';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,6 +24,7 @@ class StorageService {
         if (p.state == TaskState.success) {
           return fileRef.getDownloadURL();
         }
+        return Future.value();
       },
     );
   }
@@ -47,6 +50,7 @@ class StorageService {
         if (p.state == TaskState.success) {
           return fileRef.getDownloadURL();
         }
+        return Future.value();
       },
     );
   }

@@ -32,7 +32,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade900,
       resizeToAvoidBottomInset: false,
       body: _buildUI(),
     );
@@ -64,12 +63,12 @@ class _LoginPageState extends State<LoginPage> {
           Text(
             "Selam, Hoşgeldin!",
             style: TextStyle(
-                fontSize: 25, fontWeight: FontWeight.w700, color: Colors.white),
+                fontSize: 25, fontWeight: FontWeight.w700, color: Colors.black),
           ),
           Text(
             "Giriş yapabilirsin",
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w400, color: Colors.white),
+                fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
           )
         ],
       ),
@@ -152,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         const Text(
           "Hesabın yok mu?",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         GestureDetector(
           onTap: () {
@@ -160,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: const Text(
             " Kayıt ol",
-            style: TextStyle(fontWeight: FontWeight.w900, color: Colors.white),
+            style: TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
           ),
         )
       ],

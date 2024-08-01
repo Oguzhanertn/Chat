@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:chat/models/user_profile.dart';
 import 'package:chat/pages/chat_page.dart';
 import 'package:chat/services/alert_service.dart';
@@ -9,7 +11,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:path/path.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -65,21 +66,21 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
+              leading: const Icon(Icons.home),
               title: const Text("Ana Sayfa"),
               onTap: () {
                 _navigationService.pushReplacementNamed("/home");
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: const Icon(Icons.settings),
               title: const Text("Ayarlar"),
               onTap: () {
                 _navigationService.pushReplacementNamed("/settings");
               },
             ),
             ListTile(
-                leading: Icon(Icons.logout),
+                leading: const Icon(Icons.logout),
                 title: const Text("Oturumu Kapat"),
                 onTap: () async {
                   bool result = await _authService.logout();
