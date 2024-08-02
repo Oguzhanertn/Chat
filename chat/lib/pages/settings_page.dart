@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/services/navigation_service.dart';
@@ -24,10 +25,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: const Text("AYARLAR"),
         centerTitle: true,
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
             onPressed: () {
               _navigationService.pushReplacementNamed("/home");
             }),
@@ -69,7 +72,9 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  AdaptiveTheme.of(context).setLight();
+                },
                 icon: const Icon(Icons.light_mode),
                 iconSize: 40,
               ),
@@ -77,7 +82,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 width: 20,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  AdaptiveTheme.of(context).setDark();
+                },
                 icon: const Icon(Icons.dark_mode),
                 iconSize: 40,
               ),

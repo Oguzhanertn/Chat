@@ -63,12 +63,16 @@ class _LoginPageState extends State<LoginPage> {
           Text(
             "Selam, Hoşgeldin!",
             style: TextStyle(
-                fontSize: 25, fontWeight: FontWeight.w700, color: Colors.black),
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Text(
             "Giriş yapabilirsin",
             style: TextStyle(
-                fontSize: 12, fontWeight: FontWeight.w400, color: Colors.black),
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
           )
         ],
       ),
@@ -151,7 +155,6 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         const Text(
           "Hesabın yok mu?",
-          style: TextStyle(color: Colors.black),
         ),
         GestureDetector(
           onTap: () {
@@ -159,9 +162,11 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: const Text(
             " Kayıt ol",
-            style: TextStyle(fontWeight: FontWeight.w900, color: Colors.black),
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+            ),
           ),
-        )
+        ),
       ],
     ));
   }

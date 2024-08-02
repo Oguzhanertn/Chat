@@ -31,7 +31,7 @@ class CustomFormField extends StatelessWidget {
         // },
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.black),
+          hintStyle: const TextStyle(),
           border: const OutlineInputBorder(),
         ),
       ),
