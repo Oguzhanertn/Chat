@@ -1,0 +1,22 @@
+{
+    "@@locale": "tr",
+    "hello_welcome": "Selam, Hoşgeldin!",
+    "enter": "Giriş yapabilirsin",
+    "email": "E-Posta",
+    "password": "Şifre",
+    "login": "Giriş",
+    "no_account": "Henüz bir hesabın yok mu?",
+    "signIn": "Kayıt Ol",
+    "lets_start": "Haydi Başlayalım!",
+    "create_account": "Aşağıdaki formu doldurarak hesabını oluşturabilirsin!",
+    "name": "İsim",
+    "haveaccount": "Zaten bir hesabın var mı?",
+    "messages": "Mesajlarım",
+    "write": "Mesaj yaz...",
+    "homepage": "Ana Sayfa",
+    "settings": "Ayarlar",
+    "logout": "Oturumu Kapat",
+    "error": "Hata! Lütfen tekrar deneyiniz",
+    "succesfully": "Kayıt başarılı!",
+    "login_failed": "Giriş yapılamadı , lütfen tekrar deneyiniz"
+}

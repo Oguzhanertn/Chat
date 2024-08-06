@@ -4,6 +4,7 @@ import 'package:chat/services/navigation_service.dart';
 import 'package:chat/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -55,21 +56,21 @@ class _LoginPageState extends State<LoginPage> {
   Widget _headerText() {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Selam, Hoşgeldin!",
-            style: TextStyle(
+            AppLocalizations.of(context)!.hello_welcome,
+            style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w700,
             ),
           ),
           Text(
-            "Giriş yapabilirsin",
-            style: TextStyle(
+            AppLocalizations.of(context)!.enter,
+            style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
             ),
@@ -94,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               CustomFormField(
                 height: MediaQuery.sizeOf(context).height * 0.1,
-                hintText: "E-Posta",
+                hintText: AppLocalizations.of(context)!.email,
                 //validationRegEx: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
                   setState(() {
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               CustomFormField(
                 height: MediaQuery.sizeOf(context).height * 0.1,
-                hintText: "Şifre",
+                hintText: AppLocalizations.of(context)!.password,
                 //validationRegEx: PASSWORD_VALIDATION_REGEX,
                 obscureText: true,
                 onSaved: (value) {
@@ -132,15 +133,15 @@ class _LoginPageState extends State<LoginPage> {
               _navigationService.pushReplacementNamed("/home");
             } else {
               _alertService.showToast(
-                  text: "Giriş yapılamadı, lütfen tekrar deneyin!",
+                  text: AppLocalizations.of(context)!.login_failed,
                   icon: Icons.error);
             }
           }
         },
         color: Theme.of(context).colorScheme.primary,
-        child: const Text(
-          "Giriş",
-          style: TextStyle(color: Colors.white),
+        child: Text(
+          AppLocalizations.of(context)!.login,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -153,16 +154,16 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Text(
-          "Hesabın yok mu?",
+        Text(
+          AppLocalizations.of(context)!.no_account,
         ),
         GestureDetector(
           onTap: () {
             _navigationService.pushNamed("/register");
           },
-          child: const Text(
-            " Kayıt ol",
-            style: TextStyle(
+          child: Text(
+            AppLocalizations.of(context)!.signIn,
+            style: const TextStyle(
               fontWeight: FontWeight.w900,
             ),
           ),

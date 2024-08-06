@@ -10,6 +10,7 @@ import 'package:chat/services/storage_service.dart';
 import 'package:chat/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -81,18 +82,18 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget _headerText() {
     return SizedBox(
       width: MediaQuery.sizeOf(context).width,
-      child: const Column(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Haydi başlayalım!",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+            AppLocalizations.of(context)!.lets_start,
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
           ),
           Text(
-            "Aşağıdaki formu doldurarak hesabını oluşturabilirsin!",
-            style: TextStyle(
+            AppLocalizations.of(context)!.create_account,
+            style: const TextStyle(
                 fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey),
           )
         ],
@@ -115,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             _pfpSelectionField(),
             CustomFormField(
-                hintText: "İsim",
+                hintText: AppLocalizations.of(context)!.name,
                 height: MediaQuery.sizeOf(context).height * 0.1,
                 //validationRegEx: NAME_VALIDATION_REGEX,
                 onSaved: (value) {
@@ -124,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   });
                 }),
             CustomFormField(
-                hintText: "E-Posta",
+                hintText: AppLocalizations.of(context)!.email,
                 height: MediaQuery.sizeOf(context).height * 0.1,
                 //validationRegEx: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
@@ -133,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   });
                 }),
             CustomFormField(
-              hintText: "Şifre",
+              hintText: AppLocalizations.of(context)!.password,
               height: MediaQuery.sizeOf(context).height * 0.1,
               //validationRegEx: PASSWORD_VALIDATION_REGEX,
               obscureText: true,
@@ -199,7 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
 
                   _alertService.showToast(
-                      text: "Kayıt başarılı!", icon: Icons.check);
+                      text: AppLocalizations.of(context)!.succesfully,
+                      icon: Icons.check);
 
                   _navigationService.goBack();
                   _navigationService.pushReplacementNamed("/login");
@@ -213,15 +215,17 @@ class _RegisterPageState extends State<RegisterPage> {
           } catch (e) {
             print(e);
             _alertService.showToast(
-                text: "Hata, lütfen tekrar deneyiniz!", icon: Icons.error);
+              text: AppLocalizations.of(context)!.error,
+              icon: Icons.error,
+            );
           }
           setState(() {
             isLoading = false;
           });
         },
-        child: const Text(
-          "Kayıt Ol",
-          style: TextStyle(color: Colors.white),
+        child: Text(
+          AppLocalizations.of(context)!.signIn,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -234,14 +238,14 @@ class _RegisterPageState extends State<RegisterPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Text("Zaten bir hesabın var mı?"),
+        Text(AppLocalizations.of(context)!.haveaccount),
         GestureDetector(
           onTap: () {
             _navigationService.goBack();
           },
-          child: const Text(
-            " Giriş yap",
-            style: TextStyle(fontWeight: FontWeight.w900),
+          child: Text(
+            AppLocalizations.of(context)!.login,
+            style: const TextStyle(fontWeight: FontWeight.w900),
           ),
         )
       ],

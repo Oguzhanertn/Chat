@@ -3,6 +3,9 @@ import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/services/navigation_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_localizations/flutter_localizations.dart';
+//import 'package:intl/intl_browser.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -25,7 +28,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("AYARLAR"),
+        title: Text(AppLocalizations.of(context)!.settings),
         centerTitle: true,
         leading: IconButton(
             icon: const Icon(

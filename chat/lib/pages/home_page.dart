@@ -11,6 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -51,8 +52,8 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Sohbetlerim",
+        title: Text(
+          AppLocalizations.of(context)!.messages,
         ),
       ),
       drawer: Drawer(
@@ -67,21 +68,21 @@ class _HomepageState extends State<Homepage> {
             ),
             ListTile(
               leading: const Icon(Icons.home),
-              title: const Text("Ana Sayfa"),
+              title: Text(AppLocalizations.of(context)!.homepage),
               onTap: () {
                 _navigationService.pushReplacementNamed("/home");
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text("Ayarlar"),
+              title: Text(AppLocalizations.of(context)!.settings),
               onTap: () {
                 _navigationService.pushReplacementNamed("/settings");
               },
             ),
             ListTile(
                 leading: const Icon(Icons.logout),
-                title: const Text("Oturumu Kapat"),
+                title: Text(AppLocalizations.of(context)!.logout),
                 onTap: () async {
                   bool result = await _authService.logout();
                   if (result) {
@@ -159,3 +160,12 @@ class _HomepageState extends State<Homepage> {
         });
   }
 }
+
+
+//TODO:
+// Drawer eklenmeli
+// Drawer da home sayfası, Settings, çıkış 
+// Tema seçeneği eklenmeli( Settings sayfasında) //Localization sana bırakıyorum
+// Mesajlar silinebilmeli
+// Mesajlar listesinde isim altında son mesaj görüntülensin
+// Floating Button eklenmeli basınca Kime mesajı şeklinde gösterilmeli Kişler listelenmeli 

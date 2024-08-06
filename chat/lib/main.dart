@@ -6,25 +6,18 @@ import 'package:chat/services/navigation_service.dart';
 import 'package:chat/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 //import 'package:google_fonts/google_fonts.dart';
 import 'package:window_manager/window_manager.dart';
 import 'firebase_options.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:intl/intl_browser.dart';
 
 void main() async {
-  void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    final savedThemeMode = await AdaptiveTheme.getThemeMode();
-    runApp(MyApp(savedThemeMode: savedThemeMode));
-  }
-
-  await setup();
-  runApp(
-    MyApp(),
-  );
-
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -41,6 +34,12 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   }); // widow manager
+
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+
+  await setup();
+
+  runApp(MyApp(savedThemeMode: savedThemeMode));
 }
 
 Future<void> setup() async {
@@ -71,16 +70,31 @@ class MyApp extends StatelessWidget {
         navigatorKey: _navigationService.navigatorKey,
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
-        /*theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          textTheme: GoogleFonts.montserratTextTheme(),
-        ),*/
         theme: theme,
         darkTheme: darkTheme,
+        locale: const Locale("tr"),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'),
+          Locale('tr'),
+        ],
         initialRoute: _authService.user != null ? "/home" : "/login",
         routes: _navigationService.routes,
       ),
     );
   }
 }
+
+
+//TODO:
+// Drawer eklenmeli
+// Drawer da home sayfası, Settings, çıkış 
+// Tema seçeneği eklenmeli( Settings sayfasında) //Localization sana bırakıyorum
+// Mesajlar silinebilmeli
+// Mesajlar listesinde isim altında son mesaj görüntülensin
+// Floating Button eklenmeli basınca Kime mesajı şeklinde gösterilmeli Kişler listelenmeli 

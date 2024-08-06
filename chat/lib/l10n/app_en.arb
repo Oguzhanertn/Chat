@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "hello_welcome": "Hello, Welcome!",
+    "enter": "You can login",
+    "email": "E-Mail",
+    "password": "Password",
+    "login": "Login",
+    "no_account": "Don't you have an account yet?",
+    "signIn": "SignIn",
+    "lets_start": "Let's start!",
+    "create_account": "Let's create an account!",
+    "name": "Name",
+    "haveaccount": "Do you already have an account",
+    "messages": "Messages",
+    "write": "Write a message...",
+    "homepage": "Homepage",
+    "settings": "Settings",
+    "logout": "Logout",
+    "error": "Error! Please try again",
+    "succesfully": "Signed in succesfully!",
+    "login_failed": "Login failed, please try again"
+}

@@ -11,6 +11,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../services/database_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatPage extends StatefulWidget {
   final UserProfile chatUser;
@@ -82,8 +83,10 @@ class _ChatPageState extends State<ChatPage> {
           ),
           inputOptions: InputOptions(
             alwaysShowSend: true,
-            inputDecoration: const InputDecoration(
-                hintText: "Mesajınızı yazınız", border: OutlineInputBorder()),
+            inputDecoration: InputDecoration(
+              hintText: AppLocalizations.of(context)!.write,
+              border: const OutlineInputBorder(),
+            ),
             trailing: [
               _mediaMessageButton(),
             ],
@@ -147,9 +150,11 @@ class _ChatPageState extends State<ChatPage> {
         );
       }
     }).toList();
-    chatMessages.sort((a, b) {
-      return b.createdAt.compareTo(a.createdAt);
-    });
+    chatMessages.sort(
+      (a, b) {
+        return b.createdAt.compareTo(a.createdAt);
+      },
+    );
     return chatMessages;
   }
 
