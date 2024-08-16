@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, unused_element
+// ignore_for_file: must_be_immutable, unused_element, library_private_types_in_public_api
 
 import 'package:chat/constants/app_theme.dart';
 import 'package:chat/services/auth_service.dart';
@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
-//import 'package:google_fonts/google_fonts.dart';
+//import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'firebase_options.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//import 'package:intl/intl_browser.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,14 +48,57 @@ Future<void> setup() async {
   await registerServices();
 }
 
-class MyApp extends StatelessWidget {
-  final GetIt _getIt = GetIt.instance;
+class MyApp extends StatefulWidget {
   late NavigationService _navigationService;
   late AuthService _authService;
 
   MyApp({super.key, AdaptiveThemeMode? savedThemeMode}) {
-    _navigationService = _getIt.get<NavigationService>();
-    _authService = _getIt.get<AuthService>();
+    final GetIt getIt = GetIt.instance;
+    _navigationService = getIt.get<NavigationService>();
+    _authService = getIt.get<AuthService>();
+  }
+
+  // static void setlocale(Locale locale) async {
+  //   _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+  //   var prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('languagecode', Locale.languageCode);
+
+  //   state?.setState(() {
+  //     state._locale = locale;
+  //   });
+  // }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('tr');
+
+  void _changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLocale().then((locale) {
+      setState(() {
+        _locale = locale;
+      });
+    });
+  }
+
+  Future<Locale> _fetchLocale() async {
+    var prefs = await SharedPreferences.getInstance();
+
+    String languageCode = prefs.getString('languageCode') ?? 'tr';
+
+    return Locale(languageCode);
   }
 
   @override
@@ -67,12 +110,12 @@ class MyApp extends StatelessWidget {
       dark: appTheme.darkTheme,
       initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
-        navigatorKey: _navigationService.navigatorKey,
+        navigatorKey: widget._navigationService.navigatorKey,
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: theme,
         darkTheme: darkTheme,
-        locale: const Locale("tr"),
+        locale: _locale,
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -83,13 +126,15 @@ class MyApp extends StatelessWidget {
           Locale('en'),
           Locale('tr'),
         ],
-        initialRoute: _authService.user != null ? "/home" : "/login",
-        routes: _navigationService.routes,
+        //uygulamaya giriş yaptığı an user ı çekmen gerekiyor
+        initialRoute: widget._authService.user != null // neden null geliyor????
+            ? "/home"
+            : "/login",
+        routes: widget._navigationService.routes,
       ),
     );
   }
 }
-
 
 //TODO:
 // Drawer eklenmeli

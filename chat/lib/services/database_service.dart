@@ -44,9 +44,18 @@ class DatabaseService {
         .snapshots() as Stream<QuerySnapshot<UserProfile>>;
   }
 
+  Stream<QuerySnapshot<Chat>> getMessages() {
+    return _chatsCollection
+        ?.where(
+          "messages",
+        )
+        .snapshots() as Stream<QuerySnapshot<Chat>>;
+  }
+
   Future<bool> checkChatExists(String uid1, String uid2) async {
     String chatID = generateChatID(uid1: uid1, uid2: uid2);
     final result = await _chatsCollection?.doc(chatID).get();
+    // chatID si 1 olan collection nın messages boşsa result false değilse true
     if (result != null) {
       return result.exists;
     }

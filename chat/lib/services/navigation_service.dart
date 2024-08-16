@@ -2,15 +2,17 @@ import 'package:chat/pages/home_page.dart';
 import 'package:chat/pages/login_page.dart';
 import 'package:chat/pages/register_page.dart';
 import 'package:chat/pages/settings_page.dart';
+import 'package:chat/pages/content_page.dart';
 import 'package:flutter/material.dart';
 
 class NavigationService {
   late GlobalKey<NavigatorState> _navigatorKey;
   final Map<String, Widget Function(BuildContext)> _routes = {
-    "/login": (context) => const LoginPage(),
+    "/login": (context) => LoginPage(),
     "/home": (context) => const Homepage(),
     "/register": (context) => const RegisterPage(),
     "/settings": (context) => const SettingsPage(),
+    "/contents": (context) => const ContentPage(),
   };
 
   GlobalKey<NavigatorState>? get navigatorKey {

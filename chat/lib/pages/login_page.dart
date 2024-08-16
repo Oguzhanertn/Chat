@@ -1,3 +1,6 @@
+// ignore_for_file: unused_element, use_build_context_synchronously
+
+import 'package:chat/pages/home_page.dart';
 import 'package:chat/services/alert_service.dart';
 import 'package:chat/services/auth_service.dart';
 import 'package:chat/services/navigation_service.dart';
@@ -5,9 +8,30 @@ import 'package:chat/widgets/custom_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _login(BuildContext context) async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    if (username == 'user' && password == 'password') {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool('isLoggedIn', true);
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const Homepage()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid credentials!')),
+      );
+    }
+  }
 
   @override
   State<LoginPage> createState() => _LoginPageState();

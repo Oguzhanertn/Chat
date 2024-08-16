@@ -1,7 +1,9 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_const_constructors, use_build_context_synchronously, unused_element
 
+//import 'package:chat/models/chat.dart';
 import 'package:chat/models/user_profile.dart';
 import 'package:chat/pages/chat_page.dart';
+import 'package:chat/pages/login_page.dart';
 import 'package:chat/services/alert_service.dart';
 import 'package:chat/services/auth_service.dart';
 import 'package:chat/services/database_service.dart';
@@ -10,11 +12,22 @@ import 'package:chat/widgets/chat_tile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', false);
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
+  }
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -22,6 +35,8 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final GetIt _getIt = GetIt.instance;
+  final user = FirebaseAuth.instance.currentUser;
+  //final chat = FirebaseFirestore.instance.collection('chats');
 
   late AuthService _authService;
   late NavigationService _navigationService;
@@ -38,14 +53,12 @@ class _HomepageState extends State<Homepage> {
   }
 
   loadImg() async {
-    final user = FirebaseAuth.instance.currentUser;
-
     DocumentSnapshot variable = await FirebaseFirestore.instance
         .collection('users')
         .doc('pfpURL')
         .get();
 
-    print(variable);
+    print("foto: $variable");
   }
 
   @override
@@ -55,15 +68,24 @@ class _HomepageState extends State<Homepage> {
         title: Text(
           AppLocalizations.of(context)!.messages,
         ),
+        centerTitle: true,
       ),
       drawer: Drawer(
         child: Column(
           children: [
-            const DrawerHeader(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: null,
-                // user?['pfpURL'];
+            DrawerHeader(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(""), // ToDo: have to add pp
+                    // user?['pfpURL'];
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text("${user!.email}")
+                ],
               ),
             ),
             ListTile(
@@ -95,6 +117,18 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
       body: _buildUI(),
+      floatingActionButton: SizedBox(
+        height: 60,
+        width: 60,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              _navigationService.pushReplacementNamed("/contents");
+            },
+            child: const Icon(Icons.messenger_outline_outlined),
+          ),
+        ),
+      ),
     );
   }
 
@@ -107,60 +141,70 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+  // Widget _messagesList() {
+  //   return StreamBuilder(
+  //       stream: _databaseService.getMessages(),
+  //       builder: (context, snapshot) {
+  //         return _chatsList();
+  //       });
+  // }
+
   Widget _chatsList() {
     return StreamBuilder(
-        stream: _databaseService.getUserProfiles(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text("Sohbetler yüklenemedi"),
-            );
-          }
-
-          if (snapshot.hasData && snapshot.data != null) {
-            final users = snapshot.data!.docs;
-            return ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  UserProfile user = users[index].data();
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: ChatTile(
-                      userProfile: user,
-                      onTap: () async {
-                        final chatExists =
-                            await _databaseService.checkChatExists(
-                          _authService.user!.uid,
-                          user.uid!,
-                        );
-                        if (!chatExists) {
-                          await _databaseService.createNewChat(
-                            _authService.user!.uid,
-                            user.uid!,
-                          );
-                        }
-                        _navigationService.push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ChatPage(
-                                chatUser: user,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                });
-          }
-
+      stream: _databaseService.getUserProfiles(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: Text("Sohbetler yüklenemedi"),
           );
-        });
+        }
+
+        if (snapshot.hasData && snapshot.data != null) {
+          final users = snapshot.data!.docs;
+          //final chats = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: users.length,
+            itemBuilder: (context, index) {
+              UserProfile user = users[index].data();
+              //Chat chat = chats[index].data() as Chat;
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: ChatTile(
+                  userProfile: user,
+                  //chat: chat,
+                  onTap: () async {
+                    final chatExists = await _databaseService.checkChatExists(
+                      _authService.user!.uid,
+                      user.uid!,
+                    );
+                    if (!chatExists) {
+                      await _databaseService.createNewChat(
+                        _authService.user!.uid,
+                        user.uid!,
+                      );
+                    }
+                    _navigationService.push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ChatPage(
+                            chatUser: user,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
   }
 }
-
 
 //TODO:
 // Drawer eklenmeli

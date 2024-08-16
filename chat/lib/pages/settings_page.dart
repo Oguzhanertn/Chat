@@ -1,11 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+//import 'package:chat/main.dart';
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/services/navigation_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//import 'package:flutter_localizations/flutter_localizations.dart';
-//import 'package:intl/intl_browser.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -15,6 +14,7 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  //late final Function(Locale) setLocale;
   final GetIt _getIt = GetIt.instance;
   late NavigationService _navigationService;
 
@@ -49,7 +49,13 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  //MyApp.setLocale(context, const Locale("tr"));
+                  //setLocale(Locale('en'));
+                  //Navigator.pop(context);
+                  //_changeLanguage(Locale('tr'));
+                  //widget.changeLanguage(const Locale('tr'));
+                },
                 icon: CountryFlag.fromCountryCode(
                   'tr',
                   shape: const Circle(),
@@ -59,7 +65,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 width: 20,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  //MyApp.setLocale(context, const Locale("en"));
+                  //Navigator.pop(context);
+                  //_changeLanguage(Locale('en'));
+                  //widget.changeLanguage(const Locale('en'));
+                },
                 icon: CountryFlag.fromCountryCode(
                   'gb',
                   shape: const Circle(),

@@ -18,5 +18,6 @@
     "logout": "Logout",
     "error": "Error! Please try again",
     "succesfully": "Signed in succesfully!",
-    "login_failed": "Login failed, please try again"
+    "login_failed": "Login failed, please try again",
+    "contents": "Contents"
 }

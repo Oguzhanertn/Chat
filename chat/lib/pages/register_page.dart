@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:chat/const.dart';
 import 'package:chat/models/user_profile.dart';
